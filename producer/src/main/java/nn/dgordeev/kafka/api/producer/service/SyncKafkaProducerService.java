@@ -1,6 +1,6 @@
-package nn.dgordeev.kafka.api.service;
+package nn.dgordeev.kafka.api.producer.service;
 
-import nn.dgordeev.kafka.api.producer.DefaultKafkaProducerFactory;
+import nn.dgordeev.kafka.api.producer.factory.DefaultKafkaProducerFactory;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;

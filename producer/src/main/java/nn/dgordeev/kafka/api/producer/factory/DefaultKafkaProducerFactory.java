@@ -1,4 +1,4 @@
-package nn.dgordeev.kafka.api.producer;
+package nn.dgordeev.kafka.api.producer.factory;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.common.serialization.StringSerializer;

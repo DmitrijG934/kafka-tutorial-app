@@ -1,11 +1,11 @@
-package nn.dgordeev.kafka.api;
+package nn.dgordeev.kafka.api.producer;
 
-import nn.dgordeev.kafka.api.service.AsyncKafkaProducerService;
-import nn.dgordeev.kafka.api.service.KafkaProducerService;
-import nn.dgordeev.kafka.api.service.SyncKafkaProducerService;
+import nn.dgordeev.kafka.api.producer.service.AsyncKafkaProducerService;
+import nn.dgordeev.kafka.api.producer.service.KafkaProducerService;
+import nn.dgordeev.kafka.api.producer.service.SyncKafkaProducerService;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
-public class Application {
+public class ProducerApplication {
     private static final String TOPIC_NAME = "test";
 
     public static void main(String[] args) {

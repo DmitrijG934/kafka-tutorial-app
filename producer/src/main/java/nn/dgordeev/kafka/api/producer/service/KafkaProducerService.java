@@ -1,4 +1,4 @@
-package nn.dgordeev.kafka.api.service;
+package nn.dgordeev.kafka.api.producer.service;
 
 import org.apache.kafka.clients.producer.ProducerRecord;
 
