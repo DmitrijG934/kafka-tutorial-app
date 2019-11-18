@@ -15,6 +15,6 @@ public class AsyncEntityKafkaProducerService implements KafkaProducerService<Str
 
     @Override
     public void send(ProducerRecord<String, KafkaSerializable> record) {
-        producer.send(record, KafkaUtils::processKafkaMetadata);
+        producer.send(record, KafkaUtils::asyncKafkaCallback);
     }
 }

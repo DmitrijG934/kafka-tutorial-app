@@ -15,7 +15,7 @@ public class AsyncKafkaProducerService implements KafkaProducerService<String, S
 
     @Override
     public void send(ProducerRecord<String, String> record) {
-        producer.send(record, KafkaUtils::processKafkaMetadata);
+        producer.send(record, KafkaUtils::asyncKafkaCallback);
 
     }
 }

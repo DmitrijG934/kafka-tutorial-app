@@ -19,7 +19,7 @@ public class SyncKafkaProducerService implements KafkaProducerService<String, St
     @Override
     public void send(ProducerRecord<String, String> record) {
         try {
-            producer.send(record, KafkaUtils::processKafkaMetadata).get();
+            producer.send(record, KafkaUtils::asyncKafkaCallback).get();
         } catch (InterruptedException | ExecutionException e) {
             System.out.println(ApiReport.builder()
                     .message("Error happened during sync sending to Kafka topic.")

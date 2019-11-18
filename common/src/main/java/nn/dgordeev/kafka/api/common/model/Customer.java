@@ -1,5 +1,6 @@
 package nn.dgordeev.kafka.api.common.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,6 +24,7 @@ public class Customer implements KafkaSerializable {
     private String name;
 
     @Override
+    @JsonIgnore
     public KafkaProducerType getProducerType() {
         return KafkaProducerType.CUSTOMER;
     }
