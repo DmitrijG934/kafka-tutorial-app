@@ -1,6 +1,5 @@
 package nn.dgordeev.kafka.api.producer.service.entity;
 
-import lombok.extern.slf4j.Slf4j;
 import nn.dgordeev.kafka.api.common.model.kafka.KafkaSerializable;
 import nn.dgordeev.kafka.api.common.model.report.ApiReport;
 import nn.dgordeev.kafka.api.producer.service.KafkaProducerService;
@@ -9,7 +8,6 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 
-@Slf4j
 public class AsyncEntityKafkaProducerService implements KafkaProducerService<String, KafkaSerializable> {
     private final KafkaProducer<String, KafkaSerializable> producer;
 
@@ -27,11 +25,11 @@ public class AsyncEntityKafkaProducerService implements KafkaProducerService<Str
                             .error(exception)
                             .message("Exception happened during sending from " + this.getClass() + " to topic with name: " + record.topic())
                             .build();
-                    log.error("Error happened: {}", report);
+                    System.out.println(String.format("Error happened: %s.", report));
                 }
                 if (metadata != null) {
-                    log.info("Successfully sent message to kafka topic with name {}.", record.topic());
-                    log.debug("{}", metadata);
+                    System.out.println(String.format("Successfully sent message to kafka topic with name %s.", record.topic()));
+                    System.out.println(String.format("%s", metadata));
                 }
             }
         });
