@@ -3,6 +3,7 @@ package nn.dgordeev.kafka.api.producer.factory;
 import nn.dgordeev.kafka.api.common.model.kafka.KafkaProducerType;
 import nn.dgordeev.kafka.api.common.model.kafka.KafkaSerializable;
 import nn.dgordeev.kafka.api.producer.serializer.CustomerSerializer;
+import nn.dgordeev.kafka.api.producer.serializer.ItemSerializer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.common.serialization.StringSerializer;
 
@@ -14,10 +15,11 @@ public class DefaultKafkaProducerFactory {
     private static final String KEY_SERIALIZER = "key.serializer";
     private static final String VALUE_SERIALIZER = "value.serializer";
     private static final String BOOTSTRAP_SERVERS = "bootstrap.servers";
+    private static final String KAFKA_SERVER = "localhost:9092";
 
     private static Properties defaultProducerProps() {
         Properties properties = new Properties();
-        properties.put(BOOTSTRAP_SERVERS, "localhost:9092");
+        properties.put(BOOTSTRAP_SERVERS, KAFKA_SERVER);
         properties.put(KEY_SERIALIZER, StringSerializer.class);
         properties.put(VALUE_SERIALIZER, StringSerializer.class);
         return properties;
@@ -25,9 +27,17 @@ public class DefaultKafkaProducerFactory {
 
     private static Properties customerProducerProps() {
         Properties properties = new Properties();
-        properties.put(BOOTSTRAP_SERVERS, "localhost:9092");
+        properties.put(BOOTSTRAP_SERVERS, KAFKA_SERVER);
         properties.put(KEY_SERIALIZER, StringSerializer.class);
         properties.put(VALUE_SERIALIZER, CustomerSerializer.class);
+        return properties;
+    }
+
+    private static Properties itemProducerProps() {
+        Properties properties = new Properties();
+        properties.put(BOOTSTRAP_SERVERS, KAFKA_SERVER);
+        properties.put(KEY_SERIALIZER, StringSerializer.class);
+        properties.put(VALUE_SERIALIZER, ItemSerializer.class);
         return properties;
     }
 
@@ -39,15 +49,14 @@ public class DefaultKafkaProducerFactory {
     }
 
     public static KafkaProducer<String, KafkaSerializable> getCustomEntityProducer(KafkaProducerType producerType) {
-        if (CUSTOM_ENTITY_PRODUCER == null) {
             switch (producerType) {
                 case CUSTOMER:
                     CUSTOM_ENTITY_PRODUCER = new KafkaProducer<>(customerProducerProps());
                     break;
-                default:
-                    CUSTOM_ENTITY_PRODUCER = new KafkaProducer<>(customerProducerProps());
+                case ITEM:
+                    CUSTOM_ENTITY_PRODUCER = new KafkaProducer<>(itemProducerProps());
+                    break;
             }
-        }
         return CUSTOM_ENTITY_PRODUCER;
     }
 

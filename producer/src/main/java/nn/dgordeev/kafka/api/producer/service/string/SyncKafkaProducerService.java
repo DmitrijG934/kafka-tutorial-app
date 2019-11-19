@@ -1,7 +1,6 @@
 package nn.dgordeev.kafka.api.producer.service.string;
 
 import nn.dgordeev.kafka.api.common.model.report.ApiReport;
-import nn.dgordeev.kafka.api.common.utils.KafkaUtils;
 import nn.dgordeev.kafka.api.producer.factory.DefaultKafkaProducerFactory;
 import nn.dgordeev.kafka.api.producer.service.KafkaProducerService;
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -19,7 +18,7 @@ public class SyncKafkaProducerService implements KafkaProducerService<String, St
     @Override
     public void send(ProducerRecord<String, String> record) {
         try {
-            producer.send(record, KafkaUtils::asyncKafkaCallback).get();
+            producer.send(record).get();
         } catch (InterruptedException | ExecutionException e) {
             System.out.println(ApiReport.builder()
                     .message("Error happened during sync sending to Kafka topic.")
