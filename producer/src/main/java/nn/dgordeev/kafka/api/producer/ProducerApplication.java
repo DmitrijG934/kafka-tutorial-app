@@ -10,6 +10,7 @@ import nn.dgordeev.kafka.api.producer.service.entity.AsyncEntityKafkaProducerSer
 import org.apache.kafka.clients.producer.ProducerRecord;
 
 import java.util.Date;
+import java.util.Scanner;
 
 import static nn.dgordeev.kafka.api.common.utils.ApiConstants.CUSTOMER_TOPIC_NAME;
 import static nn.dgordeev.kafka.api.common.utils.ApiConstants.ITEMS_TOPIC_NAME;
@@ -39,7 +40,19 @@ public class ProducerApplication {
                 .build();
 
         ProducerRecord<String, KafkaSerializable> itemRecord = new ProducerRecord<>(ITEMS_TOPIC_NAME, itemToTopic);
-        itemProducerService.send(itemRecord);
 
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("How much events would you like to send? ");
+        String messageReplicas = scanner.nextLine();
+        if (!messageReplicas.equalsIgnoreCase("q")) {
+            int timesToSend = Integer.parseInt(messageReplicas);
+            if (timesToSend <= 100) {
+                for (int i = 0; i < timesToSend; i++) {
+                    System.out.println("Sending...");
+                    itemProducerService.send(itemRecord);
+                }
+            }
+        }
+        itemProducerService.send(itemRecord);
     }
 }
