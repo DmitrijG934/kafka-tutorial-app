@@ -8,6 +8,7 @@ import nn.dgordeev.kafka.api.producer.serializer.ItemSerializer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.common.serialization.StringSerializer;
 
+import java.util.Map;
 import java.util.Properties;
 
 public class DefaultKafkaProducerFactory {
@@ -18,12 +19,14 @@ public class DefaultKafkaProducerFactory {
     private static final String BOOTSTRAP_SERVERS = "bootstrap.servers";
     private static final String PARTITIONER_CLASS = "partitioner.class";
     private static final String KAFKA_SERVER = "localhost:9092";
+    private static final Map.Entry<String, Integer> RETRIES_COUNT_PROPS = Map.entry("retries", 2);
 
     private static Properties defaultProducerProps() {
         Properties properties = new Properties();
         properties.put(BOOTSTRAP_SERVERS, KAFKA_SERVER);
         properties.put(KEY_SERIALIZER, StringSerializer.class);
         properties.put(VALUE_SERIALIZER, StringSerializer.class);
+        properties.put(RETRIES_COUNT_PROPS.getKey(), RETRIES_COUNT_PROPS.getValue());
         return properties;
     }
 
@@ -33,6 +36,7 @@ public class DefaultKafkaProducerFactory {
         properties.put(KEY_SERIALIZER, StringSerializer.class);
         properties.put(VALUE_SERIALIZER, CustomerSerializer.class);
         properties.put(PARTITIONER_CLASS, CustomerPartitioner.class);
+        properties.put(RETRIES_COUNT_PROPS.getKey(), RETRIES_COUNT_PROPS.getValue());
         return properties;
     }
 
@@ -41,6 +45,7 @@ public class DefaultKafkaProducerFactory {
         properties.put(BOOTSTRAP_SERVERS, KAFKA_SERVER);
         properties.put(KEY_SERIALIZER, StringSerializer.class);
         properties.put(VALUE_SERIALIZER, ItemSerializer.class);
+        properties.put(RETRIES_COUNT_PROPS.getKey(), RETRIES_COUNT_PROPS.getValue());
         return properties;
     }
 
