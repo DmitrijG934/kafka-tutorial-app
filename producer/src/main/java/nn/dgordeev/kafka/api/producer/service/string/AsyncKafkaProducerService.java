@@ -23,11 +23,11 @@ public class AsyncKafkaProducerService implements KafkaProducerService<String, S
                         .error(exception)
                         .message("Exception happened during sending from " + this.getClass() + " to topic with name: " + record.topic())
                         .build();
-                log.error("Error: {}", report);
+                System.out.println(String.format("Error happened: %s.", report));
             }
             if (metadata != null) {
-                log.info("Successfully sent message to kafka topic with name {}.", record.topic());
-                log.debug("{}", record);
+                System.out.println(String.format("Successfully sent message to kafka topic with name %s.", record.topic()));
+                System.out.println(String.format("%s", metadata));
             }
         }));
 
